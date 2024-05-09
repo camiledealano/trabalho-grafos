@@ -13,32 +13,48 @@
         <input type="text" id="atorOrigem" list="atores">
         <datalist id="atores"></datalist><br><br>
         <label for="atorDestino">Ator de Destino:</label>
-        <input type="text" id="atorDestino" list="atores">
-        <datalist id="atores"></datalist><br><br>
+        <input type="text" id="atorDestino" list="atoresDestino">
+        <datalist id="atoresDestino"></datalist><br><br>
         <button onclick="buscarRelacionamento()">Buscar</button><br><br>
+        <button onclick="buscarRelacionamentoBS6()">Buscar comprimento máximo 6</button><br><br>
         <div id="resultado"></div>
         <h6>Camile & Higna</h6>
     </div>
+
+    <script>
+        function buscarRelacionamento() {
+            const atorOrigem = document.getElementById('atorOrigem').value;
+            const atorDestino = document.getElementById('atorDestino').value;
+
+            fetch('/buscar-relacionamento', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ atorOrigem, atorDestino })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('resultado').innerText = data;
+            });
+        }
+
+        function buscarRelacionamentoBS6() {
+            const atorOrigem = document.getElementById('atorOrigem').value;
+            const atorDestino = document.getElementById('atorDestino').value;
+
+            fetch('/buscar-relacionamento-bsf6', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ atorOrigem, atorDestino })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('resultado').innerHTML = data;
+            });
+        }
+    </script>
 </body>
-
-<script>
-    function buscarRelacionamento() {
-        const atorOrigem = document.getElementById('atorOrigem').value;
-        const atorDestino = document.getElementById('atorDestino').value;
-
-        fetch('/buscar-relacionamento', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ atorOrigem, atorDestino })
-        })
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('resultado').innerText = data;
-        });
-    }
-</script>
-
 </html>
-

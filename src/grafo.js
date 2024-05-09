@@ -59,5 +59,32 @@ function BFS(grafo, origem, destino) {
     return null; // Relacionamento não encontrado
 }
 
+// Função pra achar até 6 vértices
+function BFS6(grafo, verticeOrigem, verticeDestino) {
+    const caminhos = [];
+    const fila = [{ vertice: verticeOrigem, caminho: [verticeOrigem], arestas: 0 }];
 
-module.exports = { lerArquivoJSON, criarGrafo, BFS };
+    while (fila.length > 0) {
+        const { vertice, caminho, arestas } = fila.shift();
+
+        if (arestas === 6) {
+            continue;
+        }
+
+        for (const vizinho of grafo[vertice]) {
+            if (!caminho.includes(vizinho)) {
+                const novoCaminho = caminho.concat(vizinho);
+                const novasArestas = arestas + 1;
+
+                if (vizinho === verticeDestino) {
+                    caminhos.push(novoCaminho);
+                } else {
+                    fila.push({ vertice: vizinho, caminho: novoCaminho, arestas: novasArestas });
+                }
+            }
+        }
+    }
+    return caminhos;
+}
+
+module.exports = { lerArquivoJSON, criarGrafo, BFS, BFS6 };
