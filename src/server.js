@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { lerArquivoJSON, criarGrafo, BFS, BFS6 } = require('./grafo');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,5 +45,5 @@ app.post('/buscar-relacionamento-bsf6', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Servidor rodando na porta 3000`);
 });
